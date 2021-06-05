@@ -38,6 +38,8 @@ build/
 # bpm ignore files
 *.tlog
 *.pyc
+*.mvn
+*.cmd
 # directories #
 
 ###############
@@ -51,6 +53,7 @@ minified
 *~
 biz-apps/ediscovery/webapp/src/main/webapp/resources/minified/
 actiance.platform.bundles
+.mvn
 
 # eclipse proejcts #
 ####################
@@ -114,3 +117,40 @@ pom.xml.versionsBackup
 
 # Application files #
 product-build.info
+
+# Maven 
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# https://github.com/takari/maven-wrapper#usage-without-binary-jar
+.mvn/wrapper/maven-wrapper.jar
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
