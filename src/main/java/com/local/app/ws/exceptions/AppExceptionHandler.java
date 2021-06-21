@@ -36,7 +36,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 		ErrorMessage errorMessageOb = new ErrorMessage();
 		errorMessageOb.setTimestamp(new Date());
 		errorMessageOb.setMessage(errorMessage);
-		return new ResponseEntity<>(errorMessageOb, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(errorMessageOb, new HttpHeaders(), HttpStatus.BAD_REQUEST);
 	}
 
 }

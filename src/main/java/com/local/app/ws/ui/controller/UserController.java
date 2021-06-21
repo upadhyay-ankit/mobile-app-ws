@@ -2,10 +2,10 @@ package com.local.app.ws.ui.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,16 +19,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.local.app.ws.exceptions.UserServiceException;
 import com.local.app.ws.ui.model.request.UpdateUserDetailsRequestModel;
 import com.local.app.ws.ui.model.request.UserDetailsRequestModel;
 import com.local.app.ws.ui.model.response.UserRest;
+import com.local.app.ws.userservice.UserService;
 
 @RestController
 @RequestMapping("users") //http://localhost:8080/users
 public class UserController {
 	
 	Map<String, UserRest> users;
+	
+	@Autowired
+	UserService userService;
 
 	// http://localhost:8080/users/?page=1&limit=50
 	@GetMapping
@@ -42,9 +45,6 @@ public class UserController {
 	@GetMapping(path = "/{userId}", produces = {MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<UserRest> getUser(@PathVariable String userId) {
-		if (true) {
-			throw new UserServiceException("User service exception is thrown");
-		}
 		if (null != users && users.containsKey(userId)) {
 			return new ResponseEntity<UserRest>(users.get(userId), HttpStatus.INSUFFICIENT_STORAGE);
 		} else {
@@ -58,14 +58,8 @@ public class UserController {
 		if (users == null) {
 			users = new HashMap<>();
 		}
-		UserRest user = new UserRest();
-		user.setFirstName(userDetails.getFirstName());
-		user.setLastName(userDetails.getLastName());
-		user.setEmail(userDetails.getEmail());
-		String userId = UUID.randomUUID().toString();
-		user.setUserId(userId);
-		
-		users.put(userId, user);
+		UserRest user = userService.createUser(userDetails);
+		users.put(user.getUserId(), user);
 		return new ResponseEntity<UserRest>(user, HttpStatus.OK);
 	}
 
